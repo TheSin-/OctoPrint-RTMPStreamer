@@ -290,22 +290,23 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">{{ _('Video Device') }}</label>
+                            <label class="control-label">{{ _('Input Video Device') }}</label>
                             <div class="controls">
                                 <input type="text" class="input"
                                        data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_videodev">
-                                <span class="help-block">Leave blank for webcam via OctoPrint global settings</span>
+                                <span class="help-block">Default blank</span>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">{{ _('Video Type') }}</label>
+                            <label class="control-label">{{ _('Input Video Type') }}</label>
                             <div class="controls">
                                 <input type="text" class="input"
                                        data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_videotype">
+                                <span class="help-block">Default mjpeg</span>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">{{ _('Video Codec') }}</label>
+                            <label class="control-label">{{ _('Output Video Codec') }}</label>
                             <div class="controls">
                                 <select data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_codec">
                                     <optgroup label="h264">
@@ -324,18 +325,19 @@
                                         <option value="libkvazaar">libkvazaar Kvazaar</option>
                                     </optgroup>
                                 </select>
+                                <span class="help-block">Default libx264</span>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">{{ _('Audio Device') }}</label>
+                            <label class="control-label">{{ _('Input Audio Device') }}</label>
                             <div class="controls">
                                 <input type="text" class="input"
                                        data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_audiodev">
-                                <span class="help-block">Leave blank for lavfi</span>
+                                <span class="help-block">Default blank</span>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">{{ _('Audio Type') }}</label>
+                            <label class="control-label">{{ _('Input Audio Type') }}</label>
                             <div class="controls">
                                 <input type="text" class="input"
                                        data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_audiotype">
@@ -343,11 +345,12 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">{{ _('Audio Codec') }}</label>
+                            <label class="control-label">{{ _('Output Audio Codec') }}</label>
                             <div class="controls">
                                 <select data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_acodec">
                                     <option value="aac">aac Advanced Audio Coding</option>
                                 </select>
+                                <span class="help-block">Default aac</span>
                             </div>
                         </div>
                         <div class="control-group">
