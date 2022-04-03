@@ -66,11 +66,11 @@ class rtmpstreamer(octoprint.plugin.BlueprintPlugin,
         self.stream_resolution_default = "640x480"
 
         self.ffmpeg_cmd_default = (
-            "{ffmpeg} -re -f {videotype} -framerate {frame_rate} -i {webcam_url} {filter} "  # Video input
-            "-f lavfi -i {audiodev} " # Audio input
+            "{ffmpeg} -re -f {videotype} -framerate {frame_rate} -thread_queue_size 1024 -i {webcam_url} {filter} "  # Video input
+            "-f {audiotype} -thread_queue_size 1024 -i {audiodev} " # Audio input
             "-acodec {audiocodec} -ab 128k "  # Audio output
             "-s {stream_resolution} -vcodec {videocodec} -threads {threads} -pix_fmt yuv420p -framerate {frame_rate} -g {gop_size} -vb {bitrate} -strict experimental "  # Video output
-            "-f flv {stream_url}")  # Output stream
+            "-preset ultrafast -f flv {stream_url}")  # Output stream
         self.overlay_image_default = "jneilliii.png"
         self.docker_image_default = "kolisko/rpi-ffmpeg:latest"
         self.docker_container_default = "RTMPStreamer"
@@ -181,7 +181,8 @@ class rtmpstreamer(octoprint.plugin.BlueprintPlugin,
             ffmpeg_threads=1,
             ffmpeg_videotype="mjpeg",
             ffmpeg_videodev="",
-            ffmpeg_codec="h264_v4l2m2m" if self.platform == "pi" else "libx264",
+            ffmpeg_codec="v4l2" if self.platform == "pi-dontuseyet" else "libx264",
+            ffmpeg_audiotype="lavfi",
             ffmpeg_audiodev="",
             ffmpeg_acodec="aac",
 
@@ -348,9 +349,9 @@ class rtmpstreamer(octoprint.plugin.BlueprintPlugin,
                     overlay_height=overlay_height,
                     overlay_padding=self._settings.get(["overlay_padding"]))
                 if self._settings.get(["use_dynamic_overlay"]):
-                    overlay_cmd = "-pattern_type glob -loop 1 -r 30 -i \"" + os.path.join(self.tmpdir, "overlay") + "*.png\" " + overlay_cmd
+                    overlay_cmd = "-pattern_type glob -loop 1 -framerate 1 -thread_queue_size 1024 -i \"" + os.path.join(self.tmpdir, "overlay") + "*.png\" " + overlay_cmd
                 elif self._settings.get(["use_overlay"]):
-                    overlay_cmd = "-i " + os.path.join(self.tmpdir, "overlay.png") + " " + overlay_cmd
+                    overlay_cmd = "-thread_queue_size 1024 -i " + os.path.join(self.tmpdir, "overlay.png") + " " + overlay_cmd
             ffmpeg_cli = "ffmpeg"
             if self._settings.global_get(["webcam", "ffmpeg"]):
                 ffmpeg_cli = self._settings.global_get(["webcam", "ffmpeg"]).replace("\\", "/")
@@ -365,6 +366,7 @@ class rtmpstreamer(octoprint.plugin.BlueprintPlugin,
                 threads=self._settings.get(["ffmpeg_threads"]),
                 videotype=self._settings.get(["ffmpeg_videotype"]),
                 videocodec=self._settings.get(["ffmpeg_codec"]),
+                audiotype=self._settings.get(["ffmpeg_audiotype"]),
                 audiodev="anullsrc" if not self._settings.get(["ffmpeg_audiodev"]) else  self._settings.get(["ffmpeg_audiodev"]),
                 audiocodec=self._settings.get(["ffmpeg_acodec"]),
                 stream_resolution=self._settings.get(["stream_resolution"]),

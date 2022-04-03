@@ -294,7 +294,7 @@
                             <div class="controls">
                                 <input type="text" class="input"
                                        data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_videodev">
-                                <span class="help-block">Level blank to use video from OctoPrint global settings</span>
+                                <span class="help-block">Leave blank for webcam via OctoPrint global settings</span>
                             </div>
                         </div>
                         <div class="control-group">
@@ -331,7 +331,15 @@
                             <div class="controls">
                                 <input type="text" class="input"
                                        data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_audiodev">
-                                <span class="help-block">Level blank for no audio</span>
+                                <span class="help-block">Leave blank for lavfi</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">{{ _('Audio Type') }}</label>
+                            <div class="controls">
+                                <input type="text" class="input"
+                                       data-bind="value: settingsViewModel.settings.plugins.rtmpstreamer.ffmpeg_audiotype">
+                                <span class="help-block">Default lavfi</span>
                             </div>
                         </div>
                         <div class="control-group">
