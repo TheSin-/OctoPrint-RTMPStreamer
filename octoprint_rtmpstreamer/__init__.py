@@ -69,7 +69,7 @@ class rtmpstreamer(octoprint.plugin.BlueprintPlugin,
             "{ffmpeg} -re -f {videotype} -framerate {frame_rate} -thread_queue_size 1024 -i {webcam_url} {filter} "  # Video input
             "-f {audiotype} -thread_queue_size 1024 -i {audiodev} " # Audio input
             "-acodec {audiocodec} -ab 128k "  # Audio output
-            "-s {stream_resolution} -vcodec {videocodec} -threads {threads} -pix_fmt yuv420p -framerate {frame_rate} -g {gop_size} -keyint_min {frame_rate -vb {bitrate} -strict experimental "  # Video output
+            "-s {stream_resolution} -vcodec {videocodec} -threads {threads} -pix_fmt yuv420p -framerate {frame_rate} -g {gop_size} -keyint_min {frame_rate} -vb {bitrate} -strict experimental "  # Video output
             "-preset ultrafast -tune zerolatency -f flv {stream_url}")  # Output stream
         self.overlay_image_default = "jneilliii.png"
         self.docker_image_default = "kolisko/rpi-ffmpeg:latest"
