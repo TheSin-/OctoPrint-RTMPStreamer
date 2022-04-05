@@ -185,13 +185,38 @@ $(function () {
 
 		self.startUploadFromFile = async function() {
 			if (!self.imageFileName()) {
-				alert = gettext("Image file is not specified");
+				new PNotify({
+					title: 'RTMP Streamer',
+					text: gettext("Image file is not specified"),
+					type: 'error',
+					hide: false,
+					buttons: {
+						closer: true,
+						sticker: false
+					}
+				});
 				return;
 			}
 
 			$('#imageUploader').modal('hide');
 
-			await self.fileData.submit();
+			try {
+				await self.fileData.submit();
+				self.imageFileName('');
+			} catch(err) {
+				new PNotify({
+					title: 'RTMP Streamer',
+					text: err.status + ': ' + err.statusText,
+					type: 'error',
+					hide: false,
+					buttons: {
+						closer: true,
+						sticker: false
+					}
+				});
+				self.imageFileName('');
+				return;
+			}
 
 			$.ajax({
 				url: API_BASEURL + "plugin/rtmpstreamer",
@@ -210,7 +235,16 @@ $(function () {
 
 		self.startUploadFromURL = function() {
 			if (!self.imageFileURL()) {
-				alert = gettext("Image URL is not specified");
+				new PNotify({
+					title: 'RTMP Streamer',
+					text: gettext("Image URL is not specified"),
+					type: 'error',
+					hide: false,
+					buttons: {
+						closer: true,
+						sticker: false
+					}
+				});
 				return;
 			}
 
