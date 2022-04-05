@@ -312,14 +312,12 @@
                                     <optgroup label="h264">
                                         <option data-bind="attr: { disabled: settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'pi' }" value="h264_omx">h264_omx OpenMAX IL</option>
                                         <option data-bind="attr: { disabled: (settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'pi' && settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'linux') }" value="h264_v4l2m2m">h264_v4l2m2m V4L2 mem2mem</option>
-                                        <option value="h264_vaapi">h264_vaapi VAAPI</option>
                                         <option data-bind="attr: { disabled: settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'darwin' }" value="h264_videotoolbox">h264_videotoolbox VideoToolbox</option>
                                         <option value="libx264">libx264 Software</option>
                                         <option value="libx264rgb">libx264rgb Software</option>
                                     </optgroup>
                                     <optgroup label="h265">
                                         <option data-bind="attr: { disabled: (settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'pi' && settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'linux') }" value="hevc_v4l2m2m">hevc_v4l2m2m V4L2</option>
-                                        <option value="hevc_vaapi">hevc_vaapi VAAPI</option>
                                         <option data-bind="attr: { disabled: settingsViewModel.settings.plugins.rtmpstreamer.platform() != 'darwin' }" value="hevc_videotoolbox">hevc_videotoolbox VideoToolbox</option>
                                         <option value="libx265">libx265 Software</option>
                                         <option value="libkvazaar">libkvazaar Kvazaar</option>
